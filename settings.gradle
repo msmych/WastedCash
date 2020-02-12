@@ -1,0 +1,3 @@
+rootProject.name = 'wasted-cash'
+
+include "telegram-bot"

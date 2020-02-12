@@ -1,0 +1,12 @@
+.gradle
+gradle
+gradlew
+gradlew.bat
+
+build
+bin
+
+.project
+.classpath
+org.eclipse.buildship.core.prefs
+settings.json

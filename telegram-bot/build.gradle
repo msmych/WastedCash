@@ -1,0 +1,23 @@
+plugins {
+    id "java"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.telegram:telegrambots:4.6"
+
+    compile "ch.qos.logback:logback-classic:1.2.3"
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "wasted.bot.WastedBotApp"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
