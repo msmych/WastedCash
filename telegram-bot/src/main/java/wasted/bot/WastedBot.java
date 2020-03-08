@@ -1,17 +1,22 @@
 package wasted.bot;
 
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import wasted.bot.help.HelpUpdateProcessor;
+import wasted.bot.update.processor.AbsUpdateProcessor;
 
 class WastedBot extends TelegramLongPollingBot {
 
     private static final Logger log = LoggerFactory.getLogger(WastedBot.class);
 
     private static final String BOT_USERNAME = "SmychTestBot";
+
+    private final Set<AbsUpdateProcessor> updateProcessors = Set.of(new HelpUpdateProcessor(this));
 
     private final String token;
 
@@ -31,20 +36,8 @@ class WastedBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (!update.hasMessage()) {
-            return;
-        }
-        var message = update.getMessage();
-        if (!message.hasText()) {
-            return;
-        }
-        var text = message.getText();
-        if (text.equals("/help") || text.equals("/help@" + BOT_USERNAME)) {
-            try {
-                execute(new SendMessage(message.getChatId(), "https://telegra.ph/Wasted-cash-03-11"));
-            } catch (TelegramApiException e) {
-                log.error("Error sending message", e);
-            }
-        }
+        log.info("Received update {}", update);
+        this.updateProcessors
+            .forEach(updateProcessor -> updateProcessor.process(update));
     }
 }
