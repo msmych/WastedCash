@@ -8,13 +8,13 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public abstract class AbsUpdateProcessor {
+public abstract class UpdateProcessor {
 
-    private static final Logger log = LoggerFactory.getLogger(AbsUpdateProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(UpdateProcessor.class);
 
     private final TelegramLongPollingBot bot;
 
-    public AbsUpdateProcessor(TelegramLongPollingBot bot) {
+    public UpdateProcessor(TelegramLongPollingBot bot) {
         this.bot = bot;
     }
 
@@ -32,12 +32,13 @@ public abstract class AbsUpdateProcessor {
         if (command.startsWith("/")) {
             command = command.substring(1);
         }
-        return text.equals("/" + command) || text.equals("/" + command + "@" + bot.getBotUsername());
+        return text.equals("/" + command) || 
+            text.equals("/" + command + "@" + bot.getBotUsername());
     }
 
     protected void sendText(Message message, String text) {
         try {
-            bot.execute(new SendMessage(message.getChatId(), "https://telegra.ph/Wasted-cash-03-11"));
+            bot.execute(new SendMessage(message.getChatId(), text));
         } catch (TelegramApiException e) {
             log.error("Error sending message", e);
         }

@@ -3,9 +3,9 @@ package wasted.bot.help;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import wasted.bot.update.processor.AbsUpdateProcessor;
+import wasted.bot.update.processor.UpdateProcessor;
 
-public class HelpUpdateProcessor extends AbsUpdateProcessor {
+public class HelpUpdateProcessor extends UpdateProcessor {
 
     public HelpUpdateProcessor(TelegramLongPollingBot bot) {
         super(bot);

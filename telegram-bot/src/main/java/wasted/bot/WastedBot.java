@@ -8,15 +8,17 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import wasted.bot.help.HelpUpdateProcessor;
-import wasted.bot.update.processor.AbsUpdateProcessor;
+import wasted.bot.update.processor.UpdateProcessor;
 
 class WastedBot extends TelegramLongPollingBot {
 
     private static final Logger log = LoggerFactory.getLogger(WastedBot.class);
 
-    private static final String BOT_USERNAME = "SmychTestBot";
+    private static final String BOT_USERNAME = "WastedCashBot";
 
-    private final Set<AbsUpdateProcessor> updateProcessors = Set.of(new HelpUpdateProcessor(this));
+    private final Set<UpdateProcessor> updateProcessors = Set.of(
+        new HelpUpdateProcessor(this)
+        );
 
     private final String token;
 
