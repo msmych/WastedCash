@@ -1,0 +1,24 @@
+plugins {
+    id "java"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile project(":model")
+
+    compile "org.postgresql:postgresql:42.1.4"
+    compile "com.zaxxer:HikariCP:3.4.2"
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "wasted.expense.ExpensesApp"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

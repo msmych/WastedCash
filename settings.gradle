@@ -1,5 +1,6 @@
 rootProject.name = 'wasted-cash'
 
 include "model"
+include "expenses"
 include "telegram-bot"
     
